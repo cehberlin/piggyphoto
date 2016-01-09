@@ -351,6 +351,9 @@ class Camera(object):
             return (path.folder, path.name)
 
     def capture_preview(self, destpath=None):
+        """
+        Note: ALWAYS use cfile.clean() after usage
+        """
         cfile = CameraFile()
 
         ans = 0
@@ -364,8 +367,7 @@ class Camera(object):
 
         if destpath:
             cfile.save(destpath)
-        else:
-            return cfile
+        return cfile
 
     def download_file(self, srcfolder, srcfilename, destpath):
         cfile = CameraFile(self._cam, srcfolder, srcfilename)
@@ -516,9 +518,9 @@ class CameraAbilities(object):
         self._ab = _CameraAbilities()
 
     def __repr__(self):
-        return "Model : %s\nStatus : %d\nPort : %d\nOperations : %d\nFile Operations : %d\n" + \
+        return ("Model : %s\nStatus : %d\nPort : %d\nOperations : %d\nFile Operations : %d\n" + \
             "Folder Operations : %d\nUSB (vendor/product) : 0x%x/0x%x\nUSB class : 0x%x/0x%x/0x%x\n" + \
-            "Library : %s\nId : %s\n" % \
+            "Library : %s\nId : %s\n") % \
             (self.model, self._ab.status, self._ab.port, self._ab.operations,
                 self._ab.file_operations, self._ab.folder_operations,
                 self._ab.usb_vendor, self._ab.usb_product, self._ab.usb_class,

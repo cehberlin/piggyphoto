@@ -15,13 +15,15 @@ def show(file):
 
 C = piggyphoto.Camera()
 C.leave_locked()
-C.capture_preview('preview.jpg')
+cfile = C.capture_preview('preview.jpg')
+cfile.clean()
 
 picture = pygame.image.load("preview.jpg")
 pygame.display.set_mode(picture.get_size())
 main_surface = pygame.display.get_surface()
 
 while not quit_pressed():
-    C.capture_preview('preview.jpg')
+    cfile = C.capture_preview('preview.jpg')
+    cfile.clean()
     show("preview.jpg")
-    
+
