@@ -352,7 +352,7 @@ class Camera(object):
 
     def capture_preview(self, destpath=None):
         """
-        Note: ALWAYS use cfile.clean() after usage
+        Note: ALWAYS use cfile.unref() after usage
         """
         cfile = CameraFile()
 
@@ -482,6 +482,9 @@ class CameraFile(object):
     @name.setter
     def name(self, name):
         _check_result(gp.gp_file_set_name(self._cf, str(name)))
+
+    def __del__(self):
+        self.unref()
 
     # TODO: new_from_fd (?), new_from_handler (?), mime_tipe, mtime,
     # detect_mime_type, adjust_name_for_mime_type, data_and_size,
