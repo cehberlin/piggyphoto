@@ -236,7 +236,7 @@ class Camera(object):
         if self.initialized:
             print("Camera is already initialized.")
         ans = 0
-        for i in range(1 + retries):
+        for i in xrange(1 + retries):
             ans = gp.gp_camera_init(self._cam, context)
             if ans == 0:
                 break
@@ -337,7 +337,7 @@ class Camera(object):
         path = CameraFilePath()
 
         ans = 0
-        for i in range(1 + retries):
+        for i in xrange(1 + retries):
             ans = gp.gp_camera_capture(self._cam, GP_CAPTURE_IMAGE, byref(path), context)
             if ans == 0:
                 break
@@ -357,7 +357,7 @@ class Camera(object):
         cfile = CameraFile()
 
         ans = 0
-        for i in range(1 + retries):
+        for i in xrange(1 + retries):
             ans = gp.gp_camera_capture_preview(self._cam, cfile._cf, context)
             if ans == 0:
                 break
@@ -596,7 +596,7 @@ class CameraList(object):
                 # one path "usb:" and sometimes two paths "usb:" and "usb:xxx,yyy"
                 good_list = []
                 bad_list = []
-                for i in range(xlist.count()):
+                for i in xrange(xlist.count()):
                     model = xlist.get_name(i)
                     path = xlist.get_value(i)
                     if re.match(r'usb:\d{3},\d{3}', path):
@@ -662,14 +662,14 @@ class CameraList(object):
     def __str__(self):
         header = "CameraList object with %d elements:\n" % self.count()
         contents = ["%d: (%s, %s)" % (i, self.get_name(i), self.get_value(i))
-                    for i in range(self.count())]
+                    for i in xrange(self.count())]
 
         return header + '\n'.join(contents)
 
     def toList(self):
-        return [(self.get_name(i), self.get_value(i)) for i in range(self.count())]
+        return [(self.get_name(i), self.get_value(i)) for i in xrange(self.count())]
         xlist = []
-        for i in range(self.count()):
+        for i in xrange(self.count()):
             n, v = self.get_name(i), self.get_value(i)
             if v is None:
                 xlist.append(n)
@@ -843,7 +843,7 @@ class CameraWidget(object):
     @property
     def children(self):
         children = []
-        for i in range(self.count_children()):
+        for i in xrange(self.count_children()):
             children.append(self.get_child(i))
         return children
 
