@@ -372,7 +372,7 @@ class Camera(object):
     def download_file(self, srcfolder, srcfilename, destpath):
         cfile = CameraFile(self._cam, srcfolder, srcfilename)
         cfile.save(destpath)
-        gp.gp_file_unref(cfile._cf)
+        cfile.clean()
 
     def trigger_capture(self):
         _check_result(gp.gp_camera_trigger_capture(self._cam, context))
@@ -459,15 +459,15 @@ class CameraFile(object):
     def to_pixbuf(self):
         mimetype = ctypes.c_char_p()
         gp.gp_file_get_mime_type(self._cf, ctypes.byref(mimetype))
-        print(ctypes.string_at(mimetype))
+        #print(ctypes.string_at(mimetype))
 
         """Returns data for GdkPixbuf.PixbufLoader.write()."""
         data = ctypes.c_char_p()
         size = ctypes.c_ulong()
-        gp.gp_file_get_data_and_size(self._cf, ctypes.byref(data),
+        gp.gp_1file_get_data_and_size(self._cf, ctypes.byref(data),
                                      ctypes.byref(size))
 
-        print(size.value)
+        #print(size.value)
         return ctypes.string_at(data, size.value)
 
     def __dealoc__(self, filename):
