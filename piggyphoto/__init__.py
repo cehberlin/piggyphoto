@@ -464,7 +464,7 @@ class CameraFile(object):
         """Returns data for GdkPixbuf.PixbufLoader.write()."""
         data = ctypes.c_char_p()
         size = ctypes.c_ulong()
-        gp.gp_1file_get_data_and_size(self._cf, ctypes.byref(data),
+        gp.gp_file_get_data_and_size(self._cf, ctypes.byref(data),
                                      ctypes.byref(size))
 
         #print(size.value)
